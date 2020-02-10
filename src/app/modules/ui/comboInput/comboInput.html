@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-form-element">
+        <div class="slds-form-element__label">
+            <label for="filtered-input">{label}</label>
+        </div>
+        <div class="slds-form-element__control">
+            <select class="slds-select slds-size_1-of-3" value={selectValue} onchange={handleChange}>
+                <template for:item="option" for:each={options}>
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                </template>
+            </select>
+            <input id="filtered-input" class="slds-input slds-size_2-of-3" type={type} value={inputValue} readonly={readOnly} placeholder={placeholder} onchange={handleChange}></input>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,44 @@
+<template>
+    <article class="slds-tile slds-media">
+        <div class="slds-media__figure">
+            <div class="slds-avatar slds-avatar_medium">
+                <img
+                    src={value.photo}
+                    alt={value.username}
+                    title={value.username}
+                />
+            </div>
+        </div>
+    
+        <div class="slds-media__body slds-grid slds-grid_align-spread slds-has-flexi-truncate">
+            <div>
+                <h3 class="slds-tile__title slds-truncate" title={value.name}>
+                    <a href="javascript:void(0);">{value.name}</a>
+                </h3>
+                <div class="slds-tile__detail">
+                    <ul class="slds-list_horizontal slds-has-dividers_right slds-text-body_small">
+                        <li class="slds-item slds-truncate">{value.username}</li>
+                       <!-- <li class="slds-item slds-truncate"><a class="slds-text-color_brand" onclick={loginAs}>Login</a></li>
+                        <li class="slds-item slds-truncate"><a class="slds-text-color_destructive" onclick={deleteLogin}>Delete</a></li>-->
+                    </ul>
+                </div>
+            </div>
+            <div class="slds-shrink-none slds-button-group">
+                <base-button-icon
+                    icon-class="slds-text-color_success"
+                    icon-name="utility:new_window"
+                    title="Login As"
+                    variant="bare"
+                    onclick={loginAs}
+                ></base-button-icon>
+                <base-button-icon
+                variant="bare"
+                icon-class="slds-text-color_destructive"
+                icon-name="utility:close"
+                title="Delete"
+                onclick={dispatchActionEvent}
+            ></base-button-icon>
+            </div>
+        </div>
+    </article>
+</template>

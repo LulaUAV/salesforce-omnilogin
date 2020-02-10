@@ -1,0 +1,11 @@
+:host base-accordion-section base-button-icon {
+    display: none;
+}
+
+:host base-accordion-section:hover base-button-icon {
+    display: block;
+}
+
+.slds-card_boundary {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.1);
+}

@@ -1,0 +1,3 @@
+export const SECTION_DRAFT = 'SECTION_DRAFT';
+export const SECTION_SAVE = 'SECTION_SAVE';
+export const SECTION_DELETE = 'SECTION_DELETE';

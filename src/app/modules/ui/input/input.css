@@ -1,0 +1,48 @@
+:host {
+    display:block;
+}
+
+:host:focus-within .slds-form-element__label {
+    color: #0070d2;
+}
+
+.slds-has-error .slds-form-element__label {
+    color: #c23934;
+}
+
+:host:focus-within .slds-has-error .slds-form-element__label {
+    color: #c23934;
+}
+
+.floating-label > .slds-form-element__label {
+    position: absolute;
+    top: -.5rem;
+    left: .75rem;
+    padding: 0 .25rem;
+    line-height: 1;
+    margin: 0;
+    background-color: #fff;
+    z-index: 999;
+    transition: all ease 0.25s;
+}
+
+.floating-label.floating-label_static > .slds-form-element__label {
+    z-index: 1;
+    background-color: transparent;
+    top: .75rem;
+    transform: scale(1.08);
+}
+
+.outlineless .slds-input,
+.outlineless .slds-input:focus,
+.outlineless .slds-input:active {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.slds-form-element__help {
+    min-height: 0.625rem;
+}

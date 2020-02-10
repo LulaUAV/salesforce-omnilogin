@@ -1,0 +1,27 @@
+<template>
+    <header class="slds-card__header slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-p-bottom_small slds-border_bottom">
+        <div class="slds-size_1-of-3 slds-text-align_left">
+            <template if:true={showBackButton}>
+                <ui-back-button onclick={dispatchBackEvent}></ui-back-button>
+            </template>
+            <slot name="left"></slot>
+        </div>
+
+        <div class="slds-size_1-of-3">
+            <slot name="center"></slot>
+        </div>
+        
+        <div class="slds-size_1-of-3 slds-text-align_right">
+            <template if:true={allowSearch}>
+                <base-button-icon alternative-text="Search" variant="bare" icon-name="utility:search" onclick={toggleSearch}>
+                </base-button-icon>
+            </template>
+            <slot name="right"></slot>
+        </div>
+    </header>
+    <template if:true={isSearching}>
+        <div class="slds-p-bottom_small slds-p-around_medium slds-border_bottom">
+            <ui-input label="Search" name="search-input" label-variant="floating" type="text" onkeyup={dispatchSearchEvent} outline></ui-input>
+        </div>
+    </template>
+</template>

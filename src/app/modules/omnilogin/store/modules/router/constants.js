@@ -1,0 +1,2 @@
+export const ROUTER_NAVIGATE = 'ROUTER_NAVIGATE';
+export const ROUTER_BACK = 'ROUTER_BACK';

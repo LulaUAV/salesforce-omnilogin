@@ -1,0 +1,4 @@
+.slds-button:active, 
+.slds-button:focus {
+    box-shadow: none;
+}

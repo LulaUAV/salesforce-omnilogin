@@ -1,0 +1,11 @@
+<template>
+    <div class={outerClass}>
+        <div class="slds-form-element__label">
+            <label for="input">{label}</label>
+        </div>
+        <div class="slds-form-element__control">
+            <input id="input" class="slds-input" type={type} value={value} readonly={readOnly} placeholder={computedPlaceholder} onchange={handleChange} onkeyup={handleDeferredChange} onfocus={showLabel} onblur={hideLabel}></input>
+        </div>
+        <div class="slds-form-element__help">{errorMessage}</div>
+    </div>
+</template>

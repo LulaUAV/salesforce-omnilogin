@@ -1,0 +1,19 @@
+<template>
+    <article class="slds-card">
+        <ui-header-bar title={viewTitle} allow-search={allowSearchOnView} show-back-button={showBackButton} onback={goBack} onglobalsearch={globalSearch}>
+            <omnilogin-route-view name="header-controls" slot="left"></omnilogin-route-view>
+            <omnilogin-breadcrumbs slot="center"></omnilogin-breadcrumbs>
+            <omnilogin-route-view name="header-actions" slot="right"></omnilogin-route-view>
+        </ui-header-bar>
+
+        <div class="slds-card__body">
+            <omnilogin-route-view name="main"></omnilogin-route-view>
+        </div>
+
+        <template if:true={showActionBar}>
+            <ui-action-bar class={actionBarCssClass}>
+                <omnilogin-route-view name="footer-actions"></omnilogin-route-view>
+            </ui-action-bar>
+        </template>
+    </article>
+</template>

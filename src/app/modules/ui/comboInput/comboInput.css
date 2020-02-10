@@ -1,0 +1,20 @@
+.slds-form-element__control > .slds-select {
+    border-top-right-radius : 0;
+    border-bottom-right-radius : 0;
+}
+
+.slds-form-element__control > .slds-input {
+    border-top-left-radius : 0;
+    border-bottom-left-radius : 0;
+    border-left: none;
+    padding-left: 0.825rem;
+
+}
+.slds-form-element__control > .slds-input[readonly] {
+    border-color: #ddd;
+    background-color: #f2f2f2;
+}
+
+.slds-form-element__control > .slds-input[readonly]:focus {
+    box-shadow: none;
+}

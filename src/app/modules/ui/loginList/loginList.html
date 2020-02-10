@@ -1,0 +1,59 @@
+<template>
+    <div class="slds-card slds-card_boundary">
+        <base-accordion active-section-name={activeSections} allow-multiple-sections-open="true">
+            <template if:false={sections.length}>
+                <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                    Nothing here. Why don't you start creating a new section?
+                </div>
+            </template>
+            <template for:each={sections} for:item="section">
+                <base-accordion-section
+                    label={section.label}
+                    name={section.id}
+                    key={section.id}
+                >
+                    <base-button-icon
+                        data-label={section.label}
+                        data-section-id={section.id}
+                        data-action="new-entry"
+                        icon-name="utility:add"
+                        slot="actions"
+                        variant="bare"
+                        onclick={dispatchActionEvent}
+                    ></base-button-icon>
+                    <base-button-icon
+                        data-label={section.label}
+                        data-section-id={section.id}
+                        data-action="edit-section"
+                        icon-name="utility:edit"
+                        slot="actions"
+                        variant="bare"
+                        onclick={dispatchActionEvent}
+                    ></base-button-icon>
+                    <base-button-icon
+                        data-label={section.label}
+                        data-section-id={section.id}
+                        data-action="delete-section" 
+                        icon-name="utility:delete"
+                        slot="actions"
+                        variant="bare"
+                        onclick={dispatchActionEvent}
+                    ></base-button-icon>
+                    <template if:false={section.logins.length}>
+                        <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                            No logins entries on this section. <a data-section-id={section.id} data-action="new-entry" onclick={dispatchActionEvent}>Try to add a new login and see what happens.</a>
+                        </div>
+                    </template>
+                    <ul class="slds-has-dividers_bottom-space">
+ 
+                        <template for:each={section.logins} for:item="login">
+                            <li key={login.id} class="slds-item">
+                                <ui-login-entry value={login}></ui-login-entry>
+                            </li>
+                        </template>
+                    </ul>
+                </base-accordion-section>
+            </template>
+        </base-accordion>
+    </div>
+</template>
