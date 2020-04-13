@@ -22,4 +22,4 @@ credentials.json
 
 ````
 
-These steps will generate an unpacked extension in the `build` folder.
+These steps will generate an unpacked extension into the `build` folder.
