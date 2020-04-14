@@ -1,7 +1,7 @@
 {
     "name": "Salesforce OmniLogin",
-    "version": "0.4.1",
-    "description": "Open Source OAuth2 Store for Salesforce",
+    "version": "0.5.0",
+    "description": "Free and Open Source extension for store and manage Salesforce logins using OAuth2.",
     "permissions": [
       "storage", 
       "identity",
