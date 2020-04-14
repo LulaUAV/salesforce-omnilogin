@@ -1,7 +1,9 @@
 import { LightningElement, track  } from 'lwc';
 import Home from 'view/home';
-import NewLogin from 'view/newLogin';
-import NewLoginActions from 'view/newLoginActions';
+import AuthorizeLogin from 'view/authorizeLogin';
+import AuthorizeLoginActions from 'view/authorizeLoginActions';
+import ConfirmLoginAuthorization from 'view/confirmLoginAuthorization';
+import ConfirmLoginAuthorizationActions from 'view/confirmLoginAuthorizationActions';
 import EditSection from 'view/editSection';
 import EditSectionActions from 'view/editSectionActions';
 import DeleteSection from 'view/deleteSection';
@@ -73,16 +75,36 @@ export default class App extends LightningElement {
                 showActionBar: false
             }
         },
-        'new-entry': {
+        'authorize-login': {
             views: {
                 'main': {
-                    tagName: 'view-new-login',
-                    component: NewLogin,
+                    tagName: 'view-authorize-login',
+                    component: AuthorizeLogin,
                     transition: 'slideOut'
                 },
                 'header-actions': {
-                    tagName: 'view-new-login-actions',
-                    component: NewLoginActions,
+                    tagName: 'view-authorize-login-actions',
+                    component: AuthorizeLoginActions,
+                    transition: 'fade'
+                }
+            },
+            attributes: {
+                allowSearchOnView: false,
+                viewTitle: 'New Login',
+                showActionBar: false,
+                showBackButton: true,
+            }
+        },
+        'confirm-login-authorization': {
+            views: {
+                'main': {
+                    tagName: 'view-confirm-login-authorization',
+                    component: ConfirmLoginAuthorization,
+                    transition: 'slideOut'
+                },
+                'header-actions': {
+                    tagName: 'view-view-confirm-login-authorization-actions',
+                    component: ConfirmLoginAuthorizationActions,
                     transition: 'fade'
                 }
             },

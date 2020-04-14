@@ -15,7 +15,7 @@
                     <base-button-icon
                         data-label={section.label}
                         data-section-id={section.id}
-                        data-action="new-entry"
+                        data-action="authorize-login"
                         icon-name="utility:add"
                         slot="actions"
                         variant="bare"
@@ -41,7 +41,7 @@
                     ></base-button-icon>
                     <template if:false={section.logins.length}>
                         <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
-                            No logins entries on this section. <a data-section-id={section.id} data-action="new-entry" onclick={dispatchActionEvent}>Try to add a new login and see what happens.</a>
+                            No logins entries on this section. <a data-section-id={section.id} data-action="authorize-login" onclick={dispatchActionEvent}>Try to add a new login and see what happens.</a>
                         </div>
                     </template>
                     <ul class="slds-has-dividers_bottom-space">

@@ -1,7 +1,7 @@
 import { LightningElement, track, api } from 'lwc';
 import { store, draftLogin } from 'omnilogin/store';
 
-export default class NewLogin extends LightningElement {
+export default class AuthorizeLogin extends LightningElement {
     @api
     sectionId = '';
 

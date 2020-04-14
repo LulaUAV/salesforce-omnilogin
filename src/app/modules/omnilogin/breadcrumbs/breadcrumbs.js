@@ -29,8 +29,12 @@ export default class Breadcrumbs extends LightningElement {
                     this.setDeleteSectionDetails();
                     break;
 
-                case 'new-entry':
-                    this.setNewEntryDetails();
+                case 'authorize-login':
+                    this.setNewLoginDetails();
+                    break;
+
+                case 'confirm-login-authorization':
+                    this.setConfirmLoginDetails();
                     break;
 
                 case 'delete-login':
@@ -51,7 +55,7 @@ export default class Breadcrumbs extends LightningElement {
         })
     }
 
-    setNewEntryDetails() {
+    setNewLoginDetails() {
         const state = store.getState();
         var currentSectionId = state.router.route.params? state.router.route.params.sectionId:'';
         var sections = state.sections.byId;
@@ -59,6 +63,11 @@ export default class Breadcrumbs extends LightningElement {
 
         this.heading = 'New Login';
         this.subheading = sections[currentSectionId].label;
+    }
+
+    setConfirmLoginDetails() {
+        this.heading = 'Confirm New Login';
+        this.subheading = '';
     }
 
     setEditSectionDetails() {

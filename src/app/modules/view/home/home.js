@@ -61,8 +61,8 @@ export default class Home extends LightningElement {
 
     handleAction(event) {
         switch(event.detail.action) {
-            case 'new-entry':
-                return store.dispatch(navigate('new-entry', {
+            case 'authorize-login':
+                return store.dispatch(navigate('authorize-login', {
                     sectionId: event.detail.sectionId
                 }));
             case 'edit-section':

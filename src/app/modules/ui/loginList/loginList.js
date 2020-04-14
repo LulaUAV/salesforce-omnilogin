@@ -16,45 +16,4 @@ export default class LoginList extends LightningElement {
             composed: true
         }));
     }
-    /*addLogin(event) {
-        this.dispatchEvent(new CustomEvent('route', {
-            detail: {
-                route: 'new-entry',
-                params: {
-                    sectionId: event.target.dataset.sectionId
-                }
-            },
-            bubbles: true,
-            composed: true
-        }))
-    }
-
-    editSection(event) {
-        store.dispatch(navigate('edit-section', {
-            sectionId: event.target.dataset.sectionId
-        }));
-        /*this.dispatchEvent(new CustomEvent('route', {
-            detail: {
-                route: 'edit-section',
-                params: {
-                    sectionId: event.target.dataset.sectionId
-                }
-            },
-            bubbles: true,
-            composed: true
-        }))
-    }
-
-    removeSection(event) {
-        this.dispatchEvent(new CustomEvent('route', {
-            detail: {
-                route: 'delete-section',
-                params: {
-                    sectionId: event.target.dataset.sectionId
-                }
-            },
-            bubbles: true,
-            composed: true
-        }));
-    }*/
 }
