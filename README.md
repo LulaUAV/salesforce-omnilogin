@@ -4,7 +4,7 @@ This repository contains the source code of Salesforce Omnilogin, a free and Ope
 
 The extension is written using Open Source Lightning Web Components, as a use case to test LWC Framework outside Salesforce Platform or the more frequent "Web app" context.
 
-If you are looking for the extension, Salesforce OmniLogin should be published for Google Chrome and Mozilla Firefox.
+If you are looking for the extension, Salesforce OmniLogin are published on both [Chrome Web Store](https://chrome.google.com/webstore/detail/daknjjebdbcihmlfifnaflconldlhhpl/) and [Firefox Web Add-ons](https://addons.mozilla.org/es/firefox/addon/salesforce-omnilogin).
 
 ## Building and testing the extension
 
