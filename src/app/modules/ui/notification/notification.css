@@ -1,0 +1,55 @@
+:host {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    background-color: #706e6b;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 0 0.25rem 0.25rem;
+    width: 75%;
+    position: absolute;
+    top: 0;
+    left: 12.5%;
+    z-index: 999;
+}
+
+.scoped {
+    border-radius: 0;
+    border: none;
+    width: 100%;
+    position: static;
+}
+
+.message {
+    padding: 0 .5rem; 
+}
+
+.close {
+    margin-left: auto;
+}
+
+.brand {
+    background-color: #0070d2;
+}
+
+.inverse {
+    background-color: #16325c;
+}
+
+.success {
+    background-color: #04844b;
+} 
+
+.warning {
+    background-color: #ffb75d;
+    color: inherit;
+} 
+
+.error {
+    background-color: #c23934;
+} 

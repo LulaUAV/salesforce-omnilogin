@@ -1,0 +1,22 @@
+<template>
+    <template if:true={showScoped}>
+        <ui-notification
+            type="scoped"
+            variant={scopedNotification.variant}
+            title={scopedNotification.title}
+            message={scopedNotification.message}
+            onclose={closeScopedNotification}
+        ></ui-notification>
+    </template>
+
+    <template for:item="notification" for:each={notifications}>
+        <ui-notification
+            key={notification.id}
+            notification-id={notification.id}
+            variant={notification.variant}
+            title={notification.title}
+            message={notification.message}
+            onclose={closeNotification}
+        ></ui-notification>
+    </template>
+</template>

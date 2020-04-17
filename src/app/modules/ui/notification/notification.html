@@ -1,0 +1,14 @@
+<template>
+    <div class={themeClass}>
+        <base-icon icon-name={themeIcon} variant="bare" size="small"></base-icon>
+        <div class="message">
+            <p class="slds-text-title_bold">
+                {title}
+            </p>
+            <p class="slds-text-body_regular">
+                {message}
+            </p>
+        </div>
+        <base-button-icon class="close" icon-name="utility:close" variant="bare-inverse" onclick={dispatchCloseEvent}></base-button-icon>
+    </div>
+</template>
