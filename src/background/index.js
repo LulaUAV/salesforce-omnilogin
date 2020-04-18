@@ -35,9 +35,12 @@ function loginAs(id) {
         let credentials = storedCredentials[id] || {};
 
         oauthProvider.refresh(credentials.authorization).then(updatedCredentials => {
+            var endpoint = updatedCredentials.authorization.sfdc_community_url? updatedCredentials.authorization.sfdc_community_url:updatedCredentials.authorization.instance_url;
+
             chrome.tabs.create({
-                url: `${updatedCredentials.authorization.instance_url}/secur/frontdoor.jsp?sid=${updatedCredentials.authorization.access_token}`
-              });
+                url: `${endpoint}/secur/frontdoor.jsp?sid=${updatedCredentials.authorization.access_token}`
+            });
+            
             return saveCredentials(Object.assign(credentials, updatedCredentials));
         });
     });

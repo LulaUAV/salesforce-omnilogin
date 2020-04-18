@@ -1,12 +1,17 @@
 const AUTHORIZATION_ENDPOINT = '/services/oauth2/authorize';
 const TOKEN_ENDPOINT = '/services/oauth2/token';
-const IDENTITY_ENDPOINT = '/services/oauth2/userinfo?version=latest';
+const IDENTITY_ENDPOINT = '/services/oauth2/userinfo';
 
 function requestAuthorizationCode(client_id, domain) {
     var authorizationURL = new URL(
-        AUTHORIZATION_ENDPOINT,
         domain || 'https://login.salesforce.com'
     );
+
+    if (authorizationURL.pathname === '/') {
+        authorizationURL.pathname = AUTHORIZATION_ENDPOINT;
+    } else {
+        authorizationURL.pathname += AUTHORIZATION_ENDPOINT;
+    }
 
     authorizationURL.searchParams.append('response_type', 'code');
     authorizationURL.searchParams.append('show', 'popup');
@@ -32,29 +37,45 @@ function requestAuthorizationCode(client_id, domain) {
 
 function requestAccessToken(client_id, code, domain) {
     var tokenURL = new URL(
-        TOKEN_ENDPOINT,
         domain || 'https://login.salesforce.com'
     );
 
-    tokenURL.searchParams.append('grant_type', 'authorization_code');
+    if (tokenURL.pathname === '/') {
+        tokenURL.pathname = TOKEN_ENDPOINT;
+    } else {
+        tokenURL.pathname += TOKEN_ENDPOINT;
+    }
 
-    tokenURL.searchParams.append('code', code);
-    tokenURL.searchParams.append('redirect_uri', chrome.identity.getRedirectURL());
-    tokenURL.searchParams.append('client_id', client_id);
-    tokenURL.searchParams.append('format', 'json');
+    const body = new URLSearchParams();
 
-    return fetch(tokenURL.toString()).then(response => {
+    body.append('grant_type', 'authorization_code');
+    body.append('client_id', client_id);
+    body.append('code', code);
+    body.append('redirect_uri', chrome.identity.getRedirectURL());
+
+    return fetch(tokenURL.toString(), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        },
+        body: body
+    }).then(response => {
         return response.json();
     });
 }
 
-function requestIdentity(access_token, domain) {
-    var identityURL = new URL(
-        IDENTITY_ENDPOINT,
-        domain || 'https://login.salesforce.com'
-    );
+function requestIdentity(authorization) {
+    var identityURL = new URL(authorization.id);
 
-    return fetch(`${identityURL}&oauth_token=${access_token}`).then(response => {
+    identityURL.pathname = IDENTITY_ENDPOINT;
+
+    identityURL.searchParams.append('version', 'latest');
+    identityURL.searchParams.append('format', 'json');
+    identityURL.searchParams.append('oauth_token', authorization.access_token);
+
+
+    return fetch(identityURL.toString()).then(response => {
         return response.json().then(identity => {
             return identity;
         });
@@ -63,17 +84,30 @@ function requestIdentity(access_token, domain) {
 
 function refreshToken(client_id, refresh_token, domain) {
     var tokenURL = new URL(
-        TOKEN_ENDPOINT,
         domain || 'https://login.salesforce.com'
     );
 
-    tokenURL.searchParams.append('grant_type', 'refresh_token');
-    tokenURL.searchParams.append('format', 'json');
-    tokenURL.searchParams.append('redirect_uri', chrome.identity.getRedirectURL());
-    tokenURL.searchParams.append('client_id', client_id);
-    tokenURL.searchParams.append('refresh_token', refresh_token);
-    
-    return fetch(tokenURL.toString(), { method: 'POST'}).then(response => {
+    if (tokenURL.pathname === '/') {
+        tokenURL.pathname = TOKEN_ENDPOINT;
+    } else {
+        tokenURL.pathname += TOKEN_ENDPOINT;
+    }
+
+    const body = new URLSearchParams();
+
+    body.append('grant_type', 'refresh_token');
+    body.append('client_id', client_id);
+    body.append('refresh_token', refresh_token);
+    body.append('redirect_uri', chrome.identity.getRedirectURL());
+
+    return fetch(tokenURL.toString(), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+        },
+        body: body
+    }).then(response => {
         return response.json();
     });
 }
@@ -92,7 +126,7 @@ class SalesforceProvider {
         return requestAuthorizationCode(this.client_id, options.domain).then(code => {
             return requestAccessToken(this.client_id, code, options.domain);
         }).then(authorization => {
-            return requestIdentity(authorization.access_token, authorization.instance_url).then(identity => {
+            return requestIdentity(authorization).then(identity => {
                 return {
                     identity: identity,
                     authorization: authorization
@@ -102,10 +136,14 @@ class SalesforceProvider {
     }
 
     refresh(authorization) {
-        return refreshToken(this.client_id, authorization.refresh_token, authorization.instance_url).then(auth => {
+        return refreshToken(
+            this.client_id,
+            authorization.refresh_token,
+            authorization.instance_url
+        ).then(auth => {
             authorization = Object.assign(authorization, auth);
 
-            return requestIdentity(authorization.access_token, authorization.instance_url)
+            return requestIdentity(authorization);
         }).then(identity => {
             return {
                 identity: identity,

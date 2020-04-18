@@ -7,7 +7,9 @@
       "identity",
       "https://login.salesforce.com/services/oauth2/*",
       "https://test.salesforce.com/services/oauth2/*",
-      "https://*.my.salesforce.com/services/oauth2/*"
+      "https://*.my.salesforce.com/services/oauth2/*",
+      "https://*.force.com/*/services/oauth2/*",
+      "https://*.salesforce.com/services/oauth2/*"
     ],
     "icons": {
       "32": "icons/32.png",

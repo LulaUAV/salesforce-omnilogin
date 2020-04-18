@@ -14,7 +14,6 @@ function Login(credentials) {
         email: credentials.identity.email,
         name: credentials.identity.name,
         photo: credentials.identity.photos.thumbnail,
-        access_token: credentials.authorization.access_token,
         instance_url: credentials.authorization.instance_url,
     }
 }
