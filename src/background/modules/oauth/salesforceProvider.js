@@ -11,7 +11,11 @@ function requestAuthorizationCode(client_id, domain) {
     authorizationURL.searchParams.append('response_type', 'code');
     authorizationURL.searchParams.append('show', 'popup');
     authorizationURL.searchParams.append('prompt', 'login');
-    authorizationURL.searchParams.append('scope', 'web refresh_token');
+    authorizationURL.searchParams.append('scope', [
+        'web',
+        'api',
+        'refresh_token'
+    ].join(' '));
 
     authorizationURL.searchParams.append('redirect_uri', chrome.identity.getRedirectURL());
     authorizationURL.searchParams.append('client_id', client_id);
