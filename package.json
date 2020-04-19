@@ -21,6 +21,7 @@
     "redux": "^4.0.5",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.3.0",
+    "standard-version": "^7.1.0",
     "webextension-polyfill": "^0.6.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
@@ -52,8 +53,15 @@
   "scripts": {
     "build": "webpack",
     "build:development": "webpack --mode=development",
+    "release": "npm run build && standard-version",
     "lint": "eslint ./src/**/*.js",
     "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
     "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\""
+  },
+  "standard-version": {
+    "packageFiles": [
+      "package.json",
+      "public/manifest.json"
+    ]
   }
 }
