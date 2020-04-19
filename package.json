@@ -1,7 +1,7 @@
 {
   "name": "salesforce-omnilogin",
   "description": "Open Source OAuth2 Login Store for Salesforce",
-  "version": "0.5.0",
+  "version": "0.7.2",
   "author": "jmartinezpisson",
   "bugs": "https://github.com/jmpisson/omnilogin/issues",
   "dependencies": {
@@ -57,11 +57,5 @@
     "lint": "eslint ./src/**/*.js",
     "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
     "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\""
-  },
-  "standard-version": {
-    "packageFiles": [
-      "package.json",
-      "public/manifest.json"
-    ]
   }
 }
