@@ -30,10 +30,10 @@ export default class Input extends LightningElement {
         this._value = value;
         this.setAttribute('value', this.value);
 
-        if (!value) {
-            this.isLabelShown = false;
-        } else {
+        if (value || this.isFocused) {
             this.isLabelShown = true;
+        } else {
+            this.isLabelShown = false;
         }
     }
 
