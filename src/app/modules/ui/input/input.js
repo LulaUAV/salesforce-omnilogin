@@ -67,35 +67,37 @@ export default class Input extends LightningElement {
         var errorMessageElement = this.template.querySelector('.slds-form-element__help');
 
         if (errorMessageElement) {
-            if (value && value !== this._errorMessage) {
-                errorMessageElement.animate([
-                    { transform: `scale(0)`, offset: 0 },
-                    { transform: `scale(1)`, offset: 1 },
-                ],
-                    {
-                        duration: 250,
-                        iterations: 1,
-                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)'
-                    }
-                );
+            if (value !== this._errorMessage) {
+                if (value) {
+                    errorMessageElement.animate([
+                        { transform: `scale(0)`, offset: 0 },
+                        { transform: `scale(1)`, offset: 1 },
+                    ],
+                        {
+                            duration: 250,
+                            iterations: 1,
+                            easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)'
+                        }
+                    );
 
-                this._errorMessage = value;
-            } else {
-                errorMessageElement.animate([
-                    { transform: `scale(1)`, offset: 0 },
-                    { transform: `scale(0)`, offset: 1 },
-                ],
-                    {
-                        duration: 250,
-                        iterations: 1,
-                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)'
+                    this._errorMessage = value;
+                } else {
+                    errorMessageElement.animate([
+                        { transform: `scale(1)`, offset: 0 },
+                        { transform: `scale(0)`, offset: 1 },
+                    ],
+                        {
+                            duration: 250,
+                            iterations: 1,
+                            easing: 'cubic-bezier(0.215, 0.610, 0.355, 1.000)'
+                        }
+                    ).onfinish = () => {
+                        this._errorMessage = '';
                     }
-                ).onfinish = () => {
-                    this._errorMessage = '';
                 }
+            } else {
+                this._errorMessage = value;
             }
-        } else {
-            this._errorMessage = value;
         }
     }
 
@@ -180,7 +182,7 @@ export default class Input extends LightningElement {
         }
 
         this.errorMessage = '';
-        
+
         return false;
     }
 }
