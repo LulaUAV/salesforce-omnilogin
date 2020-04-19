@@ -30,6 +30,10 @@ function requestAuthorizationCode(client_id, domain) {
             url: authorizationURL.toString(),
             interactive: true
         }, function (redirect_uri) {
+            if(!redirect_uri) {
+                return reject('Could not load authorization page')
+            }
+
             return resolve(new URL(redirect_uri).searchParams.get('code'));
         });
     });
@@ -61,7 +65,13 @@ function requestAccessToken(client_id, code, domain) {
         },
         body: body
     }).then(response => {
-        return response.json();
+        return response.json().then(jsonResponse => {
+            if(!response.ok) {
+                return Promise.reject(`${jsonResponse.error}: ${jsonResponse.error_description}`);
+            }
+
+            return jsonResponse;
+        });
     });
 }
 
@@ -74,10 +84,13 @@ function requestIdentity(authorization) {
     identityURL.searchParams.append('format', 'json');
     identityURL.searchParams.append('oauth_token', authorization.access_token);
 
-
     return fetch(identityURL.toString()).then(response => {
-        return response.json().then(identity => {
-            return identity;
+        return response.json().then(identityResponse => {
+            if(!response.ok) {
+                return Promise.reject(`${identityResponse.error}: ${identityResponse.error_description}`);
+            }
+
+            return identityResponse;
         });
     });
 }
@@ -108,7 +121,13 @@ function refreshToken(client_id, refresh_token, domain) {
         },
         body: body
     }).then(response => {
-        return response.json();
+        return response.json().then(jsonResponse => {
+            if(!response.ok) {
+                return Promise.reject(`${jsonResponse.error}: ${jsonResponse.error_description}`);
+            }
+
+            return jsonResponse;
+        });
     });
 }
 

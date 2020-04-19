@@ -1,6 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { store, navigate } from 'omnilogin/store';
-import authProvider from 'omnilogin/authProvider';
+import { store, navigate, loginAs } from 'omnilogin/store';
 
 export default class Home extends LightningElement {
     @track
@@ -80,7 +79,7 @@ export default class Home extends LightningElement {
                 }));
 
             case 'login-as':
-                return authProvider.loginAs(event.detail.loginId);
+                return store.dispatch(loginAs(event.detail.loginId));
             default: return Promise.resolve();
         }
     }

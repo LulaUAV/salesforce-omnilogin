@@ -34,7 +34,7 @@ function loginAs(id) {
         
         let credentials = storedCredentials[id] || {};
 
-        oauthProvider.refresh(credentials.authorization).then(updatedCredentials => {
+        return oauthProvider.refresh(credentials.authorization).then(updatedCredentials => {
             var endpoint = updatedCredentials.authorization.sfdc_community_url? updatedCredentials.authorization.sfdc_community_url:updatedCredentials.authorization.instance_url;
 
             chrome.tabs.create({
@@ -61,27 +61,58 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 }).then(credentials => {
                     credentials.sectionId = message.payload.params.sectionId;
 
-                    saveCredentials(credentials).then( () => {
+                    return saveCredentials(credentials).then( () => {
                         chrome.tabs.create({
                             url: `${credentials.authorization.instance_url}/secur/frontdoor.jsp?sid=${credentials.authorization.access_token}`
                           });
-                    })
-                });
+                    });
+                }).then(() => {
+                    sendResponse({
+                        success: true
+                    });
+                }).catch(error => {
+                    sendResponse({
+                        success: false,
+                        error: error.message || error
+                    });
+                })
             } else if (message.payload.method === 'getCredentials') {
                 keepOpened = true;
                 getCredentials().then( (credentials) => {
-                    sendResponse(credentials);
-                });
+                    sendResponse({
+                        success: true,
+                        payload: credentials
+                    });
+                }).catch(error => {
+                    sendResponse({
+                        success: false,
+                        error: error.message || error
+                    });
+                })
             } else if (message.payload.method === 'deleteCredentials') {
                 keepOpened = true;
                 deleteCredentials(message.payload.params.id).then( () => {
-                    sendResponse();
-                });
+                    sendResponse({
+                        success: true
+                    });
+                }).catch(error => {
+                    sendResponse({
+                        success: false,
+                        error: error.message || error
+                    });
+                })
             } else if (message.payload.method === 'loginAs') {
                 keepOpened = true;
                 loginAs(message.payload.params.id).then( () => {
-                    sendResponse();
-                });
+                    sendResponse({
+                        success: true
+                    });
+                }).catch(error => {
+                    sendResponse({
+                        success: false,
+                        error: error.message || error
+                    });
+                })
             }
         }
 

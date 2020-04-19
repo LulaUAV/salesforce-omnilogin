@@ -6,6 +6,7 @@ import {
     LOGIN_FETCH
  } from './constants';
  import authProvider from 'omnilogin/authProvider';
+ import { showNotification } from '../application/actions';
 
 export function authorizeLogin() {
     return function(dispatch, getState) {
@@ -14,7 +15,19 @@ export function authorizeLogin() {
         return authProvider.authorize({
             loginUrl: `https://${draftLoginValue.loginUrl}`,
             sectionId: draftLoginValue.sectionId
-        });
+        }).then(() => {
+            dispatch(showNotification({
+                variant: 'success',
+                title: 'Authorization Successful',
+                message: 'The login has been saved.'
+            }));
+        }).catch((error) => {
+            dispatch(showNotification({
+                variant: 'error',
+                title: 'Authorization Error',
+                message: error
+            }));
+        })
     }
 }
 
@@ -41,17 +54,41 @@ export function deleteLogin(loginId) {
                 type: LOGIN_DELETE,
                 id: loginId
             });
-        });
+        }).catch((error) => {
+            return dispatch(showNotification({
+                variant: 'error',
+                title: 'Delete Error',
+                message: error
+            }));
+        })
     }
 }
 
 export function fetchLogins() {
     return function(dispatch) {
-        authProvider.getCredentials().then(credentials => {
+        return authProvider.getCredentials().then(credentials => {
             return dispatch({
                 type: LOGIN_FETCH,
                 logins: credentials || {}
             });
-        });
+        }).catch((error) => {
+            dispatch(showNotification({
+                variant: 'error',
+                title: 'Error',
+                message: error
+            }));
+        })
+    }
+}
+
+export function loginAs(id) {
+    return function(dispatch, getState) {
+        return authProvider.loginAs(id).catch((error) => {
+            return dispatch(showNotification({
+                variant: 'error',
+                title: 'Login Error',
+                message: error
+            }));
+        })
     }
 }

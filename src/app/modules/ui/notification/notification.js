@@ -21,6 +21,10 @@ export default class Notification extends LightningElement {
     } 
 
     get themeIcon() {
+        if(this.variant === 'error' || this.variant === 'warning') {
+            return 'utility:warning';
+        }
+
         return 'utility:info';
     } 
 

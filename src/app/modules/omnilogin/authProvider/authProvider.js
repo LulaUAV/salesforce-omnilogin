@@ -1,11 +1,15 @@
 function sendMessage(payload) {
-    return new Promise(resolve => {
+    return new Promise( (resolve, reject) => {
         chrome.runtime.sendMessage({
             namespace: 'omnilogin',
             channel: 'oauth',
             payload: payload
         }, function (response) {
-            resolve(response);
+            if(response.success) {
+                return resolve(response.payload);
+            }
+
+            return reject(response.error);
         });
     });
 }
@@ -13,7 +17,7 @@ function sendMessage(payload) {
 function getCredentials() {
     return sendMessage({
         method: 'getCredentials'
-    })
+    });
 }
 
 function authorize(loginData) {
